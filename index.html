@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mídia Kit — Nail Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
+
+  :root {
+    --ouro:       #C9A84C;
+    --ouro-claro: #E8CC80;
+    --ouro-pale:  #F5E9C8;
+    --preto:      #0B0B0B;
+    --grafite:    #1A1A1A;
+    --grafite2:   #252525;
+    --grafite3:   #333333;
+    --creme:      #F0E8D8;
+    --texto:      #CCCCCC;
+    --texto-leve: #888888;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--preto);
+    color: var(--texto);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+  }
+
+  /* ── CAPA ─────────────────────────────────────────────────── */
+  .cover {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, rgba(201,168,76,.12) 0%, transparent 60%),
+      linear-gradient(315deg, rgba(201,168,76,.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .cover-left {
+    background: var(--grafite);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 50px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-left::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 10%; bottom: 10%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--ouro), transparent);
+  }
+
+  .cover-right {
+    position: relative;
+    overflow: hidden;
+    background: var(--grafite2);
+  }
+
+  .cover-photo-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(160deg, var(--grafite2) 0%, var(--grafite3) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--ouro);
+    text-transform: uppercase;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cover-right::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--grafite) 0%, transparent 30%);
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--ouro);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  .cover-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .cover-name em {
+    font-style: italic;
+    color: var(--ouro-claro);
+  }
+
+  .cover-niche {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--texto-leve);
+    margin-bottom: 40px;
+    font-weight: 400;
+  }
+
+  .cover-divider {
+    width: 48px; height: 1px;
+    background: var(--ouro);
+    margin-bottom: 28px;
+  }
+
+  .cover-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ouro-pale);
+    line-height: 1.6;
+    max-width: 320px;
+    margin-bottom: 48px;
+  }
+
+  .cover-stats-row {
+    display: flex;
+    gap: 32px;
+  }
+
+  .cover-stat .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--ouro);
+    line-height: 1;
+  }
+
+  .cover-stat .lbl {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--texto-leve);
+    margin-top: 4px;
+  }
+
+  /* ── SECTION COMUM ────────────────────────────────────────── */
+  section {
+    padding: 80px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--ouro);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 40px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--ouro-claro);
+  }
+
+  /* ── SOBRE ────────────────────────────────────────────────── */
+  .sobre-grid {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .divider-v {
+    background: linear-gradient(to bottom, transparent, var(--ouro), transparent);
+    height: 100%;
+    min-height: 200px;
+  }
+
+  .sobre-text p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--texto);
+    margin-bottom: 16px;
+  }
+
+  .sobre-values {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 8px;
+  }
+
+  .value-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .value-dot {
+    width: 6px; height: 6px;
+    background: var(--ouro);
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+
+  .value-item strong {
+    font-weight: 500;
+    color: #fff;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .value-item span {
+    font-size: 12px;
+    color: var(--texto-leve);
+    line-height: 1.5;
+  }
+
+  /* ── NÚMEROS ──────────────────────────────────────────────── */
+  .numeros-bg {
+    background: var(--grafite);
+    border-top: 1px solid rgba(201,168,76,.2);
+    border-bottom: 1px solid rgba(201,168,76,.2);
+  }
+
+  .numeros-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+
+  .numero-card {
+    padding: 40px 28px;
+    text-align: center;
+    border-right: 1px solid rgba(201,168,76,.15);
+    position: relative;
+  }
+
+  .numero-card:last-child { border-right: none; }
+
+  .numero-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 24px; height: 2px;
+    background: var(--ouro);
+  }
+
+  .numero-card .big {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--ouro);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .numero-card .sub {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--texto-leve);
+  }
+
+  /* ── AUDIÊNCIA ────────────────────────────────────────────── */
+  .audiencia-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+
+  .aud-card {
+    background: var(--grafite);
+    border: 1px solid rgba(201,168,76,.15);
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .aud-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--ouro), transparent);
+  }
+
+  .aud-card h4 {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ouro);
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .bar-label {
+    font-size: 11px;
+    color: var(--texto-leve);
+    width: 60px;
+    flex-shrink: 0;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 3px;
+    background: var(--grafite3);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--ouro-claro), var(--ouro));
+    border-radius: 2px;
+  }
+
+  .bar-pct {
+    font-size: 11px;
+    color: var(--ouro);
+    width: 36px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .city-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    font-size: 12px;
+  }
+
+  .city-row:last-child { border-bottom: none; }
+  .city-row span:first-child { color: var(--texto); }
+  .city-row span:last-child  { color: var(--ouro); font-weight: 500; }
+
+  /* ── SERVIÇOS ─────────────────────────────────────────────── */
+  .servicos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .servico-card {
+    border: 1px solid rgba(201,168,76,.2);
+    padding: 32px 24px;
+    position: relative;
+    transition: border-color .3s;
+  }
+
+  .servico-card:hover {
+    border-color: var(--ouro);
+  }
+
+  .servico-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .servico-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .servico-card p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--texto-leve);
+    margin-bottom: 16px;
+  }
+
+  .servico-tag {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ouro);
+    border: 1px solid rgba(201,168,76,.4);
+    padding: 4px 10px;
+    margin: 3px 3px 0 0;
+  }
+
+  /* ── PARCEIROS ────────────────────────────────────────────── */
+  .parceiros-bg {
+    background: var(--grafite);
+    border-top: 1px solid rgba(201,168,76,.15);
+    border-bottom: 1px solid rgba(201,168,76,.15);
+  }
+
+  .parceiros-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+  }
+
+  .parceiro-item {
+    padding: 28px 20px;
+    text-align: center;
+    border-right: 1px solid rgba(201,168,76,.1);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--texto-leve);
+    font-weight: 400;
+    transition: color .3s;
+  }
+
+  .parceiro-item:last-child { border-right: none; }
+  .parceiro-item:hover { color: var(--ouro); }
+
+  /* ── CONTATO ──────────────────────────────────────────────── */
+  .contato-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .contato-cta {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 3vw, 38px);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.3;
+  }
+
+  .contato-cta em {
+    font-style: italic;
+    color: var(--ouro-claro);
+  }
+
+  .contato-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contato-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+
+  .contato-item:last-child { border-bottom: none; }
+
+  .contato-ico {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    color: var(--ouro);
+    flex-shrink: 0;
+  }
+
+  .contato-info label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--texto-leve);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .contato-info span {
+    font-size: 13px;
+    color: #fff;
+    font-weight: 400;
+  }
+
+  /* ── FOOTER ───────────────────────────────────────────────── */
+  footer {
+    text-align: center;
+    padding: 28px 40px;
+    border-top: 1px solid rgba(201,168,76,.2);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--texto-leve);
+  }
+
+  footer span { color: var(--ouro); }
+
+  /* ── GOLD ACCENT LINE ─────────────────────────────────────── */
+  .gold-line {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--ouro), transparent);
+    margin: 0;
+    opacity: .5;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ CAPA ═══════════════════════════ -->
+<div class="cover">
+  <div class="cover-left">
+    <p class="eyebrow">Mídia Kit · 2026</p>
+    <h1 class="cover-name">Maria<br><em>Eduarda</em></h1>
+    <p class="cover-niche">Nail Design · Press on nails · Postiças Realistas · Esmaltação em Gel </p>
+    <div class="cover-divider"></div>
+    <p class="cover-tagline">"A beleza real começa nas suas unhas."</p>
+    <div class="cover-stats-row">
+      <div class="cover-stat">
+        <div class="num">+153K</div>
+        <div class="lbl">Seguidores em 
+          três redes</div>
+        </div>
+      <div class="cover-stat">
+        <div class="num">+3M</div>
+        <div class="lbl">Alcance Mensal</div>
+      </div>
+    </div>
+  </div>
+  <div class="cover-right">
+     <img class="icon" src="imagens/icon.jpeg.jpeg" alt="foto" loading="lazy">
+      <div class="photo-icon"></div>
+    </div>
+  </div>
+</div>
+
+<div class="gold-line"></div>
+
+<!-- ═══════════════════════════ SOBRE ══════════════════════════ -->
+<section>
+  <p class="section-label">Quem sou eu</p>
+  <h2 class="section-title">Uma voz <em>autêntica</em><br>no universo da beleza</h2>
+
+  <div class="sobre-grid">
+    <div class="sobre-text">
+      <p>Sou Maria Eduarda, criadora de conteúdo focado em unhas, transformo unhas em experiências de beleza, unindo técnica, criatividade e cuidado em cada atendimento.</p>
+      <p>Há 3 anos crio um conteúdo que inspira, informa e conecta um público apaixonado por nail design, autocuidado e tendências.</p>
+      <p>Não vendo sonhos irreais. Vendo confiança e mostro seu resultado!</p>
+    </div>
+
+    <div class="divider-v"></div>
+
+    <div class="sobre-values">
+      <div class="value-item">
+        <div class="value-dot"></div>
+        <div>
+          <strong>Autenticidade</strong>
+          <span>Só indico o que uso e acredito. Minha audiência confia no meu julgamento.</span>
+        </div>
+      </div>
+      <div class="value-item">
+        <div class="value-dot"></div>
+        <div>
+          <strong>Conteúdo educativo</strong>
+          <span>Ingredientes ativos, como cuidar das unhas, melhores produtos.</span>
+        </div>
+      </div>
+      <div class="value-item">
+        <div class="value-dot"></div>
+        <div>
+          <strong>Estética cuidada</strong>
+          <span>Produção visual consistente que valoriza a identidade da marca parceira.</span>
+        </div>
+      </div>
+      <div class="value-item">
+        <div class="value-dot"></div>
+        <div>
+          <strong>Comunidade ativa</strong>
+          <span>Seguidoras fiéis que comentam, perguntam e compram com base nas minhas indicações.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-line"></div>
+
+<!-- ═══════════════════════════ NÚMEROS ════════════════════════ -->
+<div class="numeros-bg">
+  <section style="padding-top:60px; padding-bottom:60px;">
+    <p class="section-label">Números que falam</p>
+    <h2 class="section-title" style="margin-bottom:36px;">Alcance que <em>converte</em></h2>
+
+    <div class="numeros-grid">
+      <div class="numero-card">
+        <div class="big">36K</div>
+        <div class="sub">Seguidores Instagram</div>
+      </div>
+        <div class="numero-card">
+        <div class="big">1M</div>
+        <div class="sub">Alcance Mensal</div>
+      </div>
+      <div class="numeros-grid">
+      <div class="numero-card">
+        <div class="big">70K</div>
+        <div class="sub">Seguidores Facebook</div>
+      </div>
+      <div class="numero-card">
+        <div class="big">1,1M</div>
+        <div class="sub">Alcance Mensal</div>
+      </div>
+    <div class="numeros-grid">
+      <div class="numero-card">
+        <div class="big">70K</div>
+        <div class="sub">Seguidores Tiktok</div>
+      </div>
+        <div class="numero-card">
+        <div class="big">1,1M</div>
+        <div class="sub">Alcance Mensal</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="gold-line"></div>
+
+<!-- ═══════════════════════════ AUDIÊNCIA ══════════════════════ -->
+<section>
+  <p class="section-label">Minha audiência</p>
+  <h2 class="section-title">Quem te <em>ouve</em></h2>
+
+  <div class="audiencia-grid">
+    <div class="aud-card">
+      <h4>Gênero</h4>
+      <div class="bar-row">
+        <span class="bar-label">Feminino - Instagram</span>
+        <div class="bar-track"><div class="bar-fill" style="width:96%"></div></div>
+        <span class="bar-pct">96,5%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Feminino - Facebook</span>
+        <div class="bar-track"><div class="bar-fill" style="width:93%"></div></div>
+        <span class="bar-pct">93%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Feminino - Tiktok</span>
+        <div class="bar-track"><div class="bar-fill" style="width:70%"></div></div>
+        <span class="bar-pct">70%</span>
+      </div>
+    </div>
+
+    <div class="aud-card">
+      <h4>Faixa Etária</h4>
+      <div class="bar-row">
+        <span class="bar-label">25 - 34</span>
+        <div class="bar-track"><div class="bar-fill" style="width:24%"></div></div>
+        <span class="bar-pct">24,5%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">35 - 44</span>
+        <div class="bar-track"><div class="bar-fill" style="width:24%"></div></div>
+        <span class="bar-pct">24,4%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">45 - 54</span>
+        <div class="bar-track"><div class="bar-fill" style="width:22%"></div></div>
+        <span class="bar-pct">22,9%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">55 - 64</span>
+        <div class="bar-track"><div class="bar-fill" style="width:11%"></div></div>
+        <span class="bar-pct">11,4%</span>
+      </div>
+    </div>
+
+    <div class="aud-card">
+      <h4>Top Cidades</h4>
+      <div class="city-row"><span>São Paulo</span><span>10%</span></div>
+      <div class="city-row"><span>Rio de Janeiro</span><span>9,8%</span></div>
+      <div class="city-row"><span>Fortaleza</span><span>8,3%</span></div>
+      <div class="city-row"><span>Outras cidades</span><span>77,3%</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-line"></div>
+
+<!-- ═══════════════════════════ SERVIÇOS ═══════════════════════ -->
+<section>
+  <p class="section-label">O que ofereço</p>
+  <h2 class="section-title">Formatos de <em>parceria</em></h2>
+
+  <div class="servicos-grid">
+    <div class="servico-card">
+      <span class="servico-icon">🎬</span>
+      <h3>Reels Patrocinados</h3>
+      <p>Vídeos curtos criativos com integração natural do produto à minha rotina. Alta retenção e alcance orgânico.</p>
+      <span class="servico-tag">Feed</span>
+      <span class="servico-tag">Até 60s</span>
+      <span class="servico-tag">Alta Viralização</span>
+    </div>
+
+    <div class="servico-card">
+      <span class="servico-icon">📸</span>
+      <h3>Posts no Feed</h3>
+      <p>Fotos de alta qualidade com direção estética cuidada. Ideal para lançamentos e posicionamento de produto.</p>
+      <span class="servico-tag">Feed</span>
+      <span class="servico-tag">Carrossel</span>
+      <span class="servico-tag">Foto única</span>
+    </div>
+
+    <div class="servico-card">
+      <span class="servico-icon">⭕</span>
+      <h3>Stories Sequenciais</h3>
+      <p>Sequência de stories com swipe-up, enquetes e CTAs. Excelente para conversão direta e tráfego externo.</p>
+      <span class="servico-tag">Stories</span>
+      <span class="servico-tag">Link</span>
+      <span class="servico-tag">Alta Conversão</span>
+    </div>
+
+    <div class="servico-card">
+      <span class="servico-icon">💬</span>
+      <h3>Menção em Vídeo</h3>
+      <p>Integração orgânica em vídeo de rotina ou resenha. O produto é apresentado em contexto de uso real.</p>
+      <span class="servico-tag">Reel</span>
+      <span class="servico-tag">Orgânico</span>
+      <span class="servico-tag">Natural</span>
+    </div>
+
+    <div class="servico-card">
+      <span class="servico-icon">✍️</span>
+      <h3>Review Completo</h3>
+      <p>Carrossel detalhado com análise técnica do produto, ingredientes ativos, textura, resultado e veredicto.</p>
+      <span class="servico-tag">Educativo</span>
+      <span class="servico-tag">Autoridade</span>
+      <span class="servico-tag">Salvável</span>
+    </div>
+
+    <div class="servico-card">
+      <span class="servico-icon">📦</span>
+      <h3>Unboxing + Reveal</h3>
+      <p>Vídeo de abertura de kit ou produto com reação autêntica. Formato com alto engajamento e compartilhamentos.</p>
+      <span class="servico-tag">Reel</span>
+      <span class="servico-tag">Stories</span>
+      <span class="servico-tag">Engajamento</span>
+    </div>
+  </div>
+</section>
+
+<div class="gold-line"></div>
+
+<!-- ═══════════════════════════ PARCEIROS ══════════════════════ -->
+<div class="parceiros-bg">
+  <section style="padding-top:50px; padding-bottom:50px;">
+    <p class="section-label">Marcas parceiras</p>
+    <h2 class="section-title" style="margin-bottom:30px;">Já trabalhei <em>com</em></h2>
+    <div class="parceiros-grid">
+    <div class="parceiro-item"> Marca de Esmalte
+      Novo Toque</div>
+    </div>
+  </section>
+</div>
+
+<div class="gold-line"></div>
+
+<!-- ═══════════════════════════ CONTATO ════════════════════════ -->
+<section>
+  <p class="section-label">Vamos conversar</p>
+
+  <div class="contato-wrap">
+    <div class="contato-cta">
+      Pronta para criar<br>algo <em>incrível</em><br>juntas?
+    </div>
+
+    <div class="divider-v" style="min-height:160px;"></div>
+
+    <div class="contato-links">
+      <div class="contato-item">
+        <div class="contato-ico">@</div>
+        <div class="contato-info">
+          <label>Instagram</label>
+          <span>@maria_eduarda_unhas</span>
+          <label>Facebook</label>
+          <span>Maria Eduarda Unhas</span>
+          <label>Tiktok</label>
+          <span>@maria_eduarda_unhas</span>
+        </div>
+      </div>
+      <div class="contato-item">
+        <div class="contato-ico">✉</div>
+        <div class="contato-info">
+          <label>E-mail Comercial</label>
+          <span>mariaeduarda.contato7@gmail.com</span>
+        </div>
+      </div>
+      <div class="contato-item">
+        <div class="contato-ico">📱</div>
+        <div class="contato-info">
+          <label>WhatsApp</label>
+          <span>(99) 98249-8463</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Maria Eduarda</span> · Mídia Kit · Todos os direitos reservados
+</footer>
+
+</body>
+</html>
